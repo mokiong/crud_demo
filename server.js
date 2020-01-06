@@ -2,9 +2,12 @@ const express = require('express');
 const path    = require('path');
 const exphb   = require('express-handlebars');
 
-require('./model/db');
 
-const PORT = 3000;
+require('dotenv').config();
+require('./model/db');
+require('./model/aes');
+
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 //middleware

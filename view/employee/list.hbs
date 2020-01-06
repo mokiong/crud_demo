@@ -12,12 +12,12 @@
     <tbody>
         {{#each list}}
         <tr>
-            <td>{{list.Fullname}}</td>
-            <td>{{list.Email}}</td>
-            <td>{{list.Mobile}}</td>
-            <td>{{list.City}}</td>
+            <td>{{this.Fullname}}</td>
+            <td>{{this.Email}}</td>
+            <td>{{this.Mobile}}</td>
+            <td>{{this.City}}</td>
             <td>
-                <a href="/employee/{{list._id}}" class="fa fa-pencil fa-lg" aria-hidden="true"></a>
+                <a href="/employee/{{this._id}}" class="fa fa-pencil fa-lg" aria-hidden="true"></a>
                 <a href="" class="fa fa-trash fa-lg" aria-hidden="true"></a>
             </td>
         </tr>

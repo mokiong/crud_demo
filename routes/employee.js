@@ -1,6 +1,6 @@
 const router = require('express').Router();
 let Employee = require('../model/employee.model');
-
+let encrypt  = require('../model/aes')
 router.route('/').get((req,res) => {
     res.render('employee/addOrEdit', {
         viewTitle : 'Insert Employee'
@@ -8,7 +8,7 @@ router.route('/').get((req,res) => {
 });
 
 
-// emploee/1
+/*/ emploee/1
 router.route('/:id').get((req,res) => {
     console.log('hello');
     Employee.findById(req.params.id)
@@ -20,26 +20,40 @@ router.route('/:id').get((req,res) => {
             }
         )})
         .catch(err => console.error(err));
-});
+});*/
 
 router.route('/list').get((req,res) =>{
     Employee.find()
-        .then(emp => res.render("employee/list", {list: emp}))
+        .then(emp => {
+
+            const decEmp = new Employee ({
+
+                Fullname: encrypt.decrypt(emp.Fullname),
+                Email   : encrypt.decrypt(emp.Email),
+                Mobile  : encrypt.decrypt(emp.Mobile),
+                City    : encrypt.decrypt(emp.City)
+            })}
+            ,
+            res.render("employee/list", {list: decEmp}))
+        
         .catch(err => console.error(err))
 });
 
 router.route('/add').post((req,res) => {
-        console.log('hi');
-    const Fullname = req.body.fullName;
-    const Email = req.body.email;
-    const Mobile = req.body.mobile;
-    const City = req.body.city;
+        
+    const Fullname  = encrypt.encrypt(req.body.fullName);
+    const Email     = encrypt.encrypt(req.body.email);
+    const Mobile    = encrypt.encrypt(req.body.mobile);
+    const City      = encrypt.encrypt(req.body.city);
+
+    
 
     const newEmp = new Employee({
+
         Fullname: Fullname,
-        Email: Email,
-        Mobile: Mobile,
-        City: City
+        Email   : Email,
+        Mobile  : Mobile,
+        City    : City
     });
 
     newEmp.save()

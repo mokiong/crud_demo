@@ -1,5 +1,5 @@
 {
-  "name": "CRUD_mongoose",
+  "name": "crud_demo",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,9 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aes-js": "^3.1.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "mongoose": "^5.7.13"
+    "g": "^2.0.1",
+    "mongoose": "^5.7.13",
+    "nodemon": "^2.0.2"
   }
 }
-
