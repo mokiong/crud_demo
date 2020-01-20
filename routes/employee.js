@@ -22,19 +22,13 @@ router.route('/:id').get((req,res) => {
         .catch(err => console.error(err));
 });*/
 
-router.route('/list').get((req,res) =>{
+router.route('/list').get((req,res) => {
     Employee.find()
         .then(emp => {
-
-            const decEmp = new Employee ({
-
-                Fullname: encrypt.decrypt(emp.Fullname),
-                Email   : encrypt.decrypt(emp.Email),
-                Mobile  : encrypt.decrypt(emp.Mobile),
-                City    : encrypt.decrypt(emp.City)
-            })}
-            ,
-            res.render("employee/list", {list: decEmp}))
+            console.log('fuck')
+            emp = encrypt.decrypt(emp)
+            console.log('hello')
+            res.render("employee/list", {list: emp})})
         
         .catch(err => console.error(err))
 });

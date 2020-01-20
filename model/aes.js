@@ -37,7 +37,7 @@ const encrypt = (text) => {
     return encryptedHex;
 }
 
-const decrypt = (text) => {
+const decrypter = (text) => {
     
 
     // When ready to decrypt the hex string, convert it back to bytes
@@ -52,6 +52,20 @@ const decrypt = (text) => {
     var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
     return decryptedText;
 
+}
+
+const decrypt = (employeeList) => {
+    console.log(employeeList);
+    employeeList.forEach(element => {
+        element.Fullname    = decrypter(element.Fullname);
+        element.Email       = decrypter(element.Email);
+        element.Mobile      = decrypter(element.Mobile);
+        element.City        = decrypter(element.City);
+         
+    });
+  
+    
+    return employeeList;
 }
 
 exports.encrypt = encrypt;
