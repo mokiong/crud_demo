@@ -1,16 +1,23 @@
 const express = require('express');
 const path    = require('path');
 const exphb   = require('express-handlebars');
+const morgan  = require('morgan');
+
 
 
 require('dotenv').config();
 require('./model/db');
 require('./model/aes');
+require('./model/backupDb/cron');
+
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-//middleware
+
+//middlewares
+
+app.use(morgan('tiny'));        //get req status
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

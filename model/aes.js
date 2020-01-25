@@ -1,6 +1,6 @@
-const aesjs = require('aes-js');
-const envKey   = process.env.KEY;
-const key = envKey.split(',');
+const aesjs     = require('aes-js');
+const envKey    = process.env.KEY;
+const key       = envKey.split(',');
 
 for(var i=0; i < key.length; i++){
     key[i] = parseInt(key[i]);
