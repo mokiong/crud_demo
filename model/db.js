@@ -2,11 +2,6 @@ const mongoose  = require('mongoose');
 const dbURI     = process.env.CONN;
 const localURI  = process.env.LOCAL_URI
 
-//dependencies for creating backup
-const fs        = require('fs');
-const _         = require('lodash');
-const exec      = require('child_process').exec;
-const path      = require('path');
 
 //database connection
 mongoose.connect(localURI, 
