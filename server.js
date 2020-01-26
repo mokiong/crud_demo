@@ -8,7 +8,8 @@ const morgan  = require('morgan');
 require('dotenv').config();
 require('./model/db');
 require('./model/aes');
-require('./model/backupDb/cron');
+//require('./utility/cron');
+require('./utility/mailer')
 
 
 const PORT = process.env.PORT || 3000;

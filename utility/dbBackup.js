@@ -11,8 +11,8 @@
 
  
   const dbOptions = {
-    user: 'michael',
-    pass: 'ong',
+    user: dbUsername,
+    pass: dbPassword,
     host: 'localhost',
     port: 27017,
     database: 'emms',
