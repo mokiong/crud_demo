@@ -4,15 +4,15 @@
 
 
   // Concatenate root directory path with our backup folder.
-  const backupDirPath = ("C:\\Users\\Cristeta\\Desktop\\moki\\thesis");
+  const backupDirPath = ("Z:\\thesis\\backupTest");
 
   const dbUsername = process.env.DB_USERNAME;
   const dbPassword = process.env.DB_PASSWORD;
 
  
   const dbOptions = {
-    user: dbUsername,
-    pass: dbPassword,
+    user: false,
+    pass: false,
     host: 'localhost',
     port: 27017,
     database: 'emms',
@@ -87,10 +87,6 @@
         dbOptions.port +
         ' --db ' +
         dbOptions.database +
-        ' --username ' +
-        dbOptions.user +
-        ' --password ' +
-        dbOptions.pass +
         ' --out ' +
         newBackupPath;
       
