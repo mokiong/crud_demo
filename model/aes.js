@@ -55,7 +55,7 @@ const decrypter = (text) => {
 }
 
 const decrypt = (employeeList) => {
-    console.log(employeeList);
+
     employeeList.forEach(element => {
         element.Fullname    = decrypter(element.Fullname);
         element.Email       = decrypter(element.Email);
@@ -63,10 +63,10 @@ const decrypt = (employeeList) => {
         element.City        = decrypter(element.City);
          
     });
-  
-    
+       
     return employeeList;
 }
 
-exports.encrypt = encrypt;
-exports.decrypt = decrypt;
+exports.encrypt     = encrypt;
+exports.decrypt     = decrypt;
+exports.decrypter   = decrypter;

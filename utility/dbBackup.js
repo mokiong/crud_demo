@@ -94,7 +94,7 @@
         ' --out ' +
         newBackupPath;
       
-        console.log(newBackupPath)
+        
         
 
       //execute command in shell
