@@ -33,4 +33,4 @@ async function sendMail() {
   console.log('Succesfully sent mail');
 }
 
-sendMail().catch(console.error);
+sendMail().catch(console.error); 

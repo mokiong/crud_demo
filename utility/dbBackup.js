@@ -16,6 +16,7 @@
     host: 'localhost',
     port: 27017,
     database: 'emms',
+    collection: 'employees',
     autoBackup: true,
     removeOldBackup: true,
     keepLastDaysBackup: 2,
@@ -80,18 +81,8 @@
       }
 
       // Command for mongodb dump process
-      let cmd =
-        'mongodump --host ' +
-        dbOptions.host +
-        ' --port ' +
-        dbOptions.port +
-        ' --db ' +
-        dbOptions.database +
-        ' --out ' +
-        newBackupPath;
-      
-        console.log(newBackupPath)
-        
+      let cmd = `mongodump --host ${dbOptions.host} --port ${dbOptions.port} --collection ${dbOptions.collection} --db ${dbOptions.database} --out ${newBackupPath}`
+            
 
       //execute command in shell
 

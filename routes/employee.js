@@ -1,11 +1,46 @@
-const router = require('express').Router();
-let Employee = require('../model/employee.model');
-let Aes  = require('../model/aes')
+const router    = require('express').Router();
+const Employee  = require('../model/employee.model');
+const DecEmp    = require('../model/decEmp');
+const Aes       = require('../model/aes');
+const dbExport  = require('../utility/dbExport');
+
 router.route('/').get((req,res) => {
     res.render('employee/addOrEdit', {
         viewTitle : 'Insert Employee'
     })
 });
+
+// export report to csv file 
+router.route('/to-csv').get((req,res) => {
+    // decrypts every field and saves it to new database
+        Employee.find()
+            .then(emp => {
+                decElem = Aes.decrypt(emp)
+                emp.forEach(element => {    
+                    const decrpytedEmployee = new DecEmp({
+                        _id         : element._id,
+                        Fullname    : element.Fullname,
+                        Email       : element.Email,
+                        Mobile      : element.Mobile,
+                        City        : element.City,
+                    });
+            
+                    decrpytedEmployee.save()
+                        .then(() => 'success')
+                        .catch(err => console.error(err));
+                });
+                dbExport.toCsv(decElem);
+            })
+            .catch(err => console.error(err));
+
+    DecEmp.collection.remove({});
+    Employee.find()
+        .then(emp => {
+            emp = Aes.decrypt(emp)            
+            res.render("employee/list", {list: emp})
+        })        
+        .catch(err => console.error(err))
+})
 
 //delete user
 router.route('/delete/:id').get((req,res) => {
