@@ -6,11 +6,6 @@ const path = require('path');
 
 const pathCsv = path.join(__dirname,'/../public');
 
-const download = require("download-in-browser")
-download("../public/generated.csv", "readme.csv")
-  .then((data) => console.log(`${data.statusText}: Download has started...`))
-  .catch((err) => console.log(`${err.statusText}: Download failed to start`))
-
 const csvWriter = createCsvWriter({
   path  : './public/generated.csv',
   header: [

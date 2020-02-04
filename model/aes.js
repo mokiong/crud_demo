@@ -59,7 +59,7 @@ const decrypt = (employeeList) => {
     employeeList.forEach(element => {
         element.Fullname    = decrypter(element.Fullname);
         element.Email       = decrypter(element.Email);
-        element.Mobile      = decrypter(element.Mobile);
+        //element.Mobile      = decrypter(element.Mobile);
         element.City        = decrypter(element.City);
          
     });
@@ -67,6 +67,8 @@ const decrypt = (employeeList) => {
     return employeeList;
 }
 
-exports.encrypt     = encrypt;
-exports.decrypt     = decrypt;
-exports.decrypter   = decrypter;
+module.exports = {
+    encrypt,
+    decrypt,
+    decrypter
+}

@@ -17,31 +17,12 @@ router.route('/to-csv').get((req,res) => {
     // decrypts every field and saves it to new database
         Employee.find()
             .then(emp => {
-                decElem = Aes.decrypt(emp)
-                emp.forEach(element => {    
-                    const decrpytedEmployee = new DecEmp({
-                        _id         : element._id,
-                        Fullname    : element.Fullname,
-                        Email       : element.Email,
-                        Mobile      : element.Mobile,
-                        City        : element.City,
-                    });
-            
-                    decrpytedEmployee.save()
-                        .then(() => 'success')
-                        .catch(err => console.error(err));
-                });
-                dbExport.toCsv(decElem);
+                emp = Aes.decrypt(emp);
+                dbExport.toCsv(emp);
+                res.render("employee/list", {list: emp});
             })
             .catch(err => console.error(err));
 
-    DecEmp.collection.deleteMany({});
-    Employee.find()
-        .then(emp => {
-            emp = Aes.decrypt(emp)            
-            res.render("employee/list", {list: emp})
-        })        
-        .catch(err => console.error(err))
 })
 
 //delete user
@@ -100,7 +81,7 @@ router.route('/add').post((req,res) => {
         
     const Fullname  = Aes.encrypt(req.body.fullName);
     const Email     = Aes.encrypt(req.body.email);
-    const Mobile    = Aes.encrypt(req.body.mobile);
+    const Mobile    = req.body.mobile;
     const City      = Aes.encrypt(req.body.city);
  
     
