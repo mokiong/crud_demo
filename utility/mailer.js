@@ -1,4 +1,3 @@
-"use strict";
 const nodemailer = require("nodemailer");
 
 const senderUser = process.env.EMAIL_USERNAME;
@@ -33,4 +32,4 @@ async function sendMail() {
   console.log('Succesfully sent mail');
 }
 
-sendMail().catch(console.error); 
+module.exports.sendMail= sendMail;
