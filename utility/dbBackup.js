@@ -4,8 +4,7 @@
 
 
   // Concatenate root directory path with our backup folder.
-  const backupDirPath = ("Z:\\thesis\\backupTest");
-
+  const backupDirPath = process.env.BACKUP_PATH;
   const dbUsername = process.env.DB_USERNAME;
   const dbPassword = process.env.DB_PASSWORD;
 
@@ -23,63 +22,11 @@
     autoBackupPath: backupDirPath
   };
 
-  // return stringDate as a date object.
-  exports.stringToDate = dateString => {
-    return new Date(dateString);
-  };
-
-  // Check if variable is empty or not.
-  exports.empty = mixedVar => {
-    let undef, key, i, len;
-    const emptyValues = [undef, null, false, 0, '', '0'];
-    for (i = 0, len = emptyValues.length; i < len; i++) {
-      if (mixedVar === emptyValues[i]) {
-        return true;
-      }
-    }
-    if (typeof mixedVar === 'object') {
-      for (key in mixedVar) {
-        return false;
-      }
-      return true;
-    }
-    return false;
-  };
 
   // Auto backup function
   exports.dbAutoBackUp = () => {
-    
-    // check for auto backup is enabled or disabled
-    if (dbOptions.autoBackup == true) {
-      let date = new Date();
-      let beforeDate, oldBackupDir, oldBackupPath;
-
-      // Current date
-      currentDate = this.stringToDate(date);
-      let newBackupDir =
-        currentDate.getFullYear() +
-        '-' +
-        (currentDate.getMonth() + 1) +
-        '-' +
-        currentDate.getDate();
-
-      // New backup path for current backup process
-      let newBackupPath = dbOptions.autoBackupPath + '\\emms-backupDb-' + newBackupDir;
-      // check for remove old backup after keeping # of days given in configuration
-      if (dbOptions.removeOldBackup == true) {
-        beforeDate = _.clone(currentDate);
-        // Substract number of days to keep backup and remove old backup
-        beforeDate.setDate(beforeDate.getDate() - dbOptions.keepLastDaysBackup);
-        oldBackupDir =
-          beforeDate.getFullYear() +
-          '-' +
-          (beforeDate.getMonth() + 1) +
-          '-' +
-          beforeDate.getDate();
-        // old backup(after keeping # of days)
-        oldBackupPath = dbOptions.autoBackupPath + 'mongodump-' + oldBackupDir;
-      }
-
+      
+      const newBackupPath = backupDirPath + '\\EmmsBackupDb';
       // Command for mongodb dump process
       let cmd = `mongodump --host ${dbOptions.host} --port ${dbOptions.port} --collection ${dbOptions.collection} --db ${dbOptions.database} --out ${newBackupPath}`
             
@@ -102,5 +49,4 @@
         })
         console.log('Succesfully created backup!')
       }    
-    }
-  };
+    };

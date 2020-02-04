@@ -7,7 +7,7 @@ const morgan  = require('morgan');
 
 require('dotenv').config();
 require('./model/db');
-// require('./utility/cron');
+require('./utility/cron');
 // require('./utility/mailer');
 require('./utility/dbExport');
 
