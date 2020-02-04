@@ -4,7 +4,7 @@ const DecEmp    = require('../model/decEmp');
 const Aes       = require('../model/aes');
 const dbExport  = require('../utility/dbExport');
 
-const Emailer   = require('../utility/mailer');
+const { sendMail }   = require('../utility/mailer');
 
 router.route('/').get((req,res) => {
     res.render('employee/addOrEdit', {
@@ -36,7 +36,6 @@ router.route('/to-csv').get((req,res) => {
             .catch(err => console.error(err));
 
     DecEmp.collection.deleteMany({});
-    Emailer.sendMail();
     Employee.find()
         .then(emp => {
             emp = Aes.decrypt(emp)            

@@ -7,8 +7,8 @@ const morgan  = require('morgan');
 
 require('dotenv').config();
 require('./model/db');
-//require('./utility/cron');
-//require('./utility/mailer');
+// require('./utility/cron');
+// require('./utility/mailer');
 require('./utility/dbExport');
 
 const PORT = process.env.PORT || 3000;
@@ -20,6 +20,8 @@ const app = express();
 app.use(morgan('tiny'));        //get req status
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+app.use(express.static(path.join(__dirname,'public')));
 
 
 //routes

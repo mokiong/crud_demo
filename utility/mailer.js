@@ -32,4 +32,4 @@ async function sendMail() {
   console.log('Succesfully sent mail');
 }
 
-module.exports.sendMail= sendMail;
+module.exports = { sendMail } 
