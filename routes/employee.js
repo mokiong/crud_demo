@@ -12,6 +12,11 @@ router.route('/').get((req,res) => {
     })
 });
 
+router.route('/import-csv').post((req,res) => {
+    console.log(req.body)
+    console.log('hi')
+});
+
 // export report to csv file 
 router.route('/to-csv').get((req,res) => {
     // decrypts every field and saves it to new database

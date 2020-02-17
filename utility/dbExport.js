@@ -6,14 +6,25 @@ const path = require('path');
 
 const pathCsv = path.join(__dirname,'/../public');
 
+const csvImport = () => {
+  fs.createReadStream('/generate.csv')
+  .pipe(csv())
+  .on('data', (data) => results.push(data))
+  .on('end', () => {
+    console.log(results);
+    
+  });
+}
+
+
 const csvWriter = createCsvWriter({
   path  : './public/generated.csv',
   header: [
-    {id: 'Fullname' , title: 'Name'},
+    {id: 'Fullname' , title: 'Fullname'},
     {id: 'Email'    , title: 'Email'},
     {id: 'Mobile'   , title: 'Mobile'},
-    {id: 'City'     , title: 'City'},
-  ],
+    {id: 'City'     , title: 'City'}
+  ]
 
 });
 
@@ -32,4 +43,4 @@ const toCsv = (data) => {
       }
   }
 module.exports.toCsv = toCsv;
- 
+module.exports.csvImport = csvImport;
