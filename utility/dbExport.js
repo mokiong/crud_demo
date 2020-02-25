@@ -1,21 +1,11 @@
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const fs = require('fs');
-const childProc = require('child_process')
-const path = require('path');
+const fs              = require('fs');
+const childProc       = require('child_process')
+const path            = require('path');
 
 
+// path to csv file ---- static public files
 const pathCsv = path.join(__dirname,'/../public');
-
-const csvImport = () => {
-  fs.createReadStream('/generate.csv')
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-    console.log(results);
-    
-  });
-}
-
 
 const csvWriter = createCsvWriter({
   path  : './public/generated.csv',
@@ -42,5 +32,7 @@ const toCsv = (data) => {
                 .catch(err => console.error(err));
       }
   }
-module.exports.toCsv = toCsv;
-module.exports.csvImport = csvImport;
+
+module.exports = { 
+  toCsv 
+}

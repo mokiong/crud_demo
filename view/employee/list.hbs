@@ -25,10 +25,10 @@
     </tbody>
     <a class="btn btn-secondary" href="/employee/to-csv">To CSV</a>
     <a class="btn btn-secondary" href="/generated.csv" download="reports.csv">get CSV</a>
-    <form action="/employee/import-csv" method="post">
+    <form action="/employee/import-csv" method="post"  enctype="multipart/form-data">
         <label for="myfile">Select a file:</label>
-        <input type="file" id="myfile" name="myfile"><br><br>
-        <input type="submit">
+        <input type="file" id="myfile" name="myfile" accept=".csv"><br><br>
+        <input type="submit" value="import csv">
     </form>
-    <a class="btn btn-secondary" href="/generated.csv" download="reports.csv">import csv</a>
+    
 </table>

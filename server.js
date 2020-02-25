@@ -1,8 +1,9 @@
+// required module
 const express = require('express');
 const path    = require('path');
 const exphb   = require('express-handlebars');
 const morgan  = require('morgan');
-
+var busboy    = require('connect-busboy');
 
 
 require('dotenv').config();
@@ -20,7 +21,7 @@ const app = express();
 app.use(morgan('tiny'));        //get req status
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use(busboy());
 app.use(express.static(path.join(__dirname,'public')));
 
 

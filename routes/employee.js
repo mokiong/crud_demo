@@ -1,10 +1,15 @@
-const router    = require('express').Router();
+const router     = require('express').Router();
+const fs         = require('fs');
+const path       = require('path');
+// import models
 const Employee  = require('../model/employee.model');
-const DecEmp    = require('../model/decEmp');
-const Aes       = require('../model/aes');
-const dbExport  = require('../utility/dbExport');
 
-const { sendMail }   = require('../utility/mailer');
+// import utility
+const Aes           = require('../model/aes');
+const { toCsv }     = require('../utility/dbExport');
+const { csvImport } = require('../utility/Import');
+const { sendMail }  = require('../utility/mailer');
+
 
 router.route('/').get((req,res) => {
     res.render('employee/addOrEdit', {
@@ -12,9 +17,24 @@ router.route('/').get((req,res) => {
     })
 });
 
-router.route('/import-csv').post((req,res) => {
-    console.log(req.body)
-    console.log('hi')
+router.route('/import-csv').post( (req,res) => {
+    
+    const pathPublic = path.join(__dirname,'/../public/');
+
+    req.pipe(req.busboy)
+    .on('file', (fieldname, file, filename) => {
+        if(filename.substring(filename.length, filename.length-3) != 'csv'){
+            res.send('must be csv file')
+        } else {
+            console.log("Uploading: " + filename);
+            var fstream = fs.createWriteStream(pathPublic + 'csvToImport.csv');
+            file.pipe(fstream)
+            .on('close', () => {
+                csvImport(pathPublic + '/csvToImport.csv')
+                res.redirect('back');
+            });
+        }
+    });
 });
 
 // export report to csv file 
@@ -23,7 +43,7 @@ router.route('/to-csv').get((req,res) => {
         Employee.find()
             .then(emp => {
                 emp = Aes.decrypt(emp);
-                dbExport.toCsv(emp);
+                toCsv(emp);
                 res.render("employee/list", {list: emp});
             })
             .catch(err => console.error(err));
